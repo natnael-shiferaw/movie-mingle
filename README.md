@@ -65,7 +65,7 @@ Movie Mingle is a dynamic movie recommendation application built using Next.js. 
 ### Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/movie-mingle.git
+   git clone https://github.com/natnael-shiferaw/movie-mingle.git
    ```
 2. Navigate to the project folder:
    ```sh
