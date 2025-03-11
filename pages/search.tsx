@@ -20,7 +20,7 @@ export default function SearchPage() {
   const [error, setError] = useState("")
   const [favorites, setFavorites] = useLocalStorage<string[]>("favorites", [])
 
-  // Update the useEffect to check if q exists and is a string
+  // checks if q exists and is a string
   useEffect(() => {
     if (!q || typeof q !== "string") return
 
@@ -54,7 +54,6 @@ export default function SearchPage() {
     return <LoadingState />
   }
 
-  // Update the title to handle undefined q
   return (
     <>
       <Head>
