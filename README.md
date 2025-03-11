@@ -13,7 +13,7 @@ Movie Mingle is a dynamic movie recommendation application built using Next.js. 
 - Ensures fast navigation and optimized rendering.
 
 ### ✅ Save Favorite Movies
-- Allows users to save favorite movies locally or via an API.
+- Allows users to save favorite movies locally.
 - Features a dedicated favorites section for easy management.
 
 ### ✅ Responsive & Interactive UI
