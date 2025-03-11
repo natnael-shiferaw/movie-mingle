@@ -75,6 +75,10 @@ Movie Mingle is a dynamic movie recommendation application built using Next.js. 
    ```sh
    npm install
    ```
+   if errors occur use
+   ```sh
+   npm install --force
+   ```
 4. Create an `.env.local` file and add your API key:
    ```sh
    NEXT_PUBLIC_MOVIE_API_KEY=your_api_key_here
