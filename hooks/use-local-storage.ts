@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react"
 
+// Hook to manage localStorage state
 export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
+  // Get initial value from localStorage or fallback to initialValue
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === "undefined") {
       return initialValue
@@ -16,6 +18,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T 
     }
   })
 
+  // Update state and localStorage
   const setValue = useCallback(
     (value: T | ((val: T) => T)) => {
       try {
@@ -31,6 +34,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T 
     [key, storedValue],
   )
 
+  // Sync state if localStorage updates from another tab
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === key && event.newValue) {
