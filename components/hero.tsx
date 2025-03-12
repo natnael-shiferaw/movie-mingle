@@ -11,6 +11,7 @@ interface HeroProps {
   onToggleFavorite: (id: string) => void
 }
 
+// Hero component displays the main featured movie
 export default function Hero({ movie, isFavorite, onToggleFavorite }: HeroProps) {
   return (
     <div className="relative w-full h-[70vh] md:h-[80vh]">
@@ -27,10 +28,11 @@ export default function Hero({ movie, isFavorite, onToggleFavorite }: HeroProps)
           className="object-cover"
           priority
         />
+        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/20" />
       </div>
 
-      {/* Content */}
+      {/* Movie Information */}
       <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">{movie.title}</h1>
