@@ -13,6 +13,7 @@ interface MovieGridProps {
   onToggleFavorite: (id: string) => void
 }
 
+// Renders a responsive grid of movie cards
 export default function MovieGrid({ movies, favorites, onToggleFavorite }: MovieGridProps) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
@@ -34,6 +35,7 @@ interface MovieCardProps {
   onToggleFavorite: (id: string) => void
 }
 
+// Displays a single movie card with hover effects and favorite toggle
 function MovieCard({ movie, isFavorite, onToggleFavorite }: MovieCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -43,6 +45,7 @@ function MovieCard({ movie, isFavorite, onToggleFavorite }: MovieCardProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Movie Poster */}
       <Link href={`/movie/${movie.id}`} className="block">
         <div className="relative aspect-[2/3] w-full">
           <Image
@@ -56,10 +59,12 @@ function MovieCard({ movie, isFavorite, onToggleFavorite }: MovieCardProps) {
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
           />
+          {/* Dark overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
       </Link>
 
+      {/* Favorite Button */}
       <Button
         variant="ghost"
         size="icon"
@@ -73,6 +78,7 @@ function MovieCard({ movie, isFavorite, onToggleFavorite }: MovieCardProps) {
         <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""}`} />
       </Button>
 
+      {/* Movie Title and Details */}
       <div className="p-3">
         <Link href={`/movie/${movie.id}`} className="block">
           <h3 className="font-medium line-clamp-1 hover:text-primary transition-colors">{movie.title}</h3>
