@@ -13,20 +13,25 @@ import Link from "next/link"
 
 export default function SearchPage() {
   const router = useRouter()
-  // Handle the case where router.query might be undefined during initial render
+  // Get search query parameter from URL
   const q = router.query?.q
+
+  // State variables for search results, loading state, and error messages
   const [searchResults, setSearchResults] = useState<Movie[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  
+  // Retrieve favorite movie IDs from local storage
   const [favorites, setFavorites] = useLocalStorage<string[]>("favorites", [])
 
-  // checks if q exists and is a string
+  // Fetch search results when the query changes
   useEffect(() => {
     if (!q || typeof q !== "string") return
 
     const fetchResults = async () => {
       try {
         setLoading(true)
+        // Fetch movies that match the search query
         const results = await searchMovies(q)
         setSearchResults(results)
       } catch (err) {
@@ -40,12 +45,13 @@ export default function SearchPage() {
     fetchResults()
   }, [q])
 
+  // Function to add or remove movies from favorites
   const toggleFavorite = (movieId: string) => {
     setFavorites((prev) => {
       if (prev.includes(movieId)) {
-        return prev.filter((id) => id !== movieId)
+        return prev.filter((id) => id !== movieId) // Remove from favorites
       } else {
-        return [...prev, movieId]
+        return [...prev, movieId] // Add to favorites
       }
     })
   }
@@ -67,11 +73,14 @@ export default function SearchPage() {
           {searchResults.length} results {q ? `for "${q}"` : ""}
         </p>
 
+        {/* Display error message if fetching fails */}
         {error && <div className="p-4 mb-8 bg-red-500/10 text-red-500 rounded-lg">{error}</div>}
 
         {searchResults.length > 0 ? (
+          // Display the list of search results
           <MovieGrid movies={searchResults} favorites={favorites} onToggleFavorite={toggleFavorite} />
         ) : (
+          // Show a message if no results are found
           <div className="text-center py-16">
             <h2 className="text-2xl font-bold mb-4">No results found</h2>
             <p className="text-muted-foreground mb-8">We couldn't find any movies matching your search.</p>
