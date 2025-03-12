@@ -1,18 +1,21 @@
 import type { Movie, MovieDetails } from "@/types/movie";
 
+// API key and base URL for the TMDB API
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
+// Ensure API_KEY is defined before making API requests
 if (!API_KEY) {
   throw new Error("NEXT_PUBLIC_TMDB_API_KEY is not defined in the environment variables");
 }
 
-// Helper function to fetch data from TMDB API
+// Helper function to fetch data from TMDB API, with support for query parameters
 async function fetchFromAPI<T>(endpoint: string, queryParams: Record<string, string> = {}): Promise<T | null> {
   if (!API_KEY) {
     throw new Error("NEXT_PUBLIC_TMDB_API_KEY is not defined in the environment variables");
   }
 
+  // Construct query string with API key, language, and additional query parameters
   const queryString = new URLSearchParams({
     api_key: API_KEY as string, // Ensure API_KEY is a string
     language: "en-US",
@@ -25,6 +28,7 @@ async function fetchFromAPI<T>(endpoint: string, queryParams: Record<string, str
     console.log(`Fetching: ${url}`);
     const response = await fetch(url);
 
+    // Handle failed response
     if (!response.ok) {
       const errorText = await response.text();
       console.warn(`Fetch failed: ${response.status} - ${response.statusText} - ${errorText}`);
@@ -40,7 +44,7 @@ async function fetchFromAPI<T>(endpoint: string, queryParams: Record<string, str
 
 
 
-// Fetch trending movies
+// Fetch trending movies for the current week
 export async function fetchTrendingMovies(): Promise<Movie[]> {
   console.log("Fetching trending movies...");
   const data = await fetchFromAPI<{ results: Movie[] }>("/trending/movie/week");
@@ -54,7 +58,7 @@ export async function fetchTrendingMovies(): Promise<Movie[]> {
   return data.results;
 }
 
-// Fetch recommended movies based on a movie ID
+// Fetch recommended movies based on a specific movie ID
 export async function fetchRecommendedMovies(movieId: string): Promise<Movie[]> {
   console.log(`Fetching recommended movies for movie ID: ${movieId}`);
   const data = await fetchFromAPI<{ results: Movie[] }>(`/movie/${movieId}/recommendations`);
@@ -82,7 +86,7 @@ export async function fetchPopularMovies(): Promise<Movie[]> {
   return data.results;
 }
 
-// Fetch movie details by ID
+// Fetch detailed movie information by ID
 export async function fetchMovieDetails(id: string): Promise<MovieDetails> {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=credits`
@@ -96,7 +100,7 @@ export async function fetchMovieDetails(id: string): Promise<MovieDetails> {
 }
 
 
-// Fetch similar movies
+// Fetch similar movies based on a movie ID
 export async function fetchSimilarMovies(movieId: string): Promise<Movie[]> {
   console.log(`Fetching similar movies for movie ID: ${movieId}`);
   const data = await fetchFromAPI<{ results: Movie[] }>(`/movie/${movieId}/similar`);
@@ -110,7 +114,7 @@ export async function fetchSimilarMovies(movieId: string): Promise<Movie[]> {
   return data.results;
 }
 
-// Search movies by query
+// Search movies by a query string
 export async function searchMovies(query: string): Promise<Movie[]> {
   console.log(`Searching movies for query: ${query}`);
   const data = await fetchFromAPI<{ results: Movie[] }>("/search/movie", { query: encodeURIComponent(query) });
@@ -123,12 +127,11 @@ export async function searchMovies(query: string): Promise<Movie[]> {
   return data.results;
 }
 
-
-
 // Fetch multiple movies by IDs (for favorites)
 export async function fetchMoviesByIds(movieIds: string[]): Promise<Movie[]> {
   console.log("Fetching movies by multiple IDs:", movieIds);
-  
+
+  // Fetch movie details for each movie ID, skipping invalid ones
   const promises = movieIds.map(async (id) => {
     try {
       const movie = await fetchMovieDetails(id);
