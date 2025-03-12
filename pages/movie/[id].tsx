@@ -21,6 +21,7 @@ export default function MovieDetailsPage() {
   const [error, setError] = useState("")
   const [favorites, setFavorites] = useLocalStorage<string[]>("favorites", [])
 
+  // Fetches movie details and similar movies when the component mounts
   useEffect(() => {
     if (!id) return
 
@@ -43,6 +44,7 @@ export default function MovieDetailsPage() {
     fetchData()
   }, [id])
 
+  // Toggles movie as a favorite
   const toggleFavorite = (movieId: string) => {
     setFavorites((prev) => {
       if (prev.includes(movieId)) {
