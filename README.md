@@ -41,9 +41,9 @@ Movie Mingle is a dynamic movie recommendation application built using Next.js. 
 - Optimize performance and fix rendering issues.
 
 ## Deployment
-- **Platform**: Hosted on [Vercel](https://movie-mingle-pi.vercel.app/)  for public access.
+- **Platform**: Hosted on Vercel [here](https://movie-mingle-pi.vercel.app/)  for public access.
 
-## Evaluation Criteria
+## Key Characterstics
 ### ✔ Functionality
 - Successfully fetches and displays trending and recommended movies.
 - Implements dynamic routing for detailed movie pages.
@@ -83,6 +83,7 @@ Movie Mingle is a dynamic movie recommendation application built using Next.js. 
    ```sh
    NEXT_PUBLIC_MOVIE_API_KEY=your_api_key_here
    ```
+   refer the docs [here](https://developer.themoviedb.org/docs/getting-started)
 5. Run the development server:
    ```sh
    npm run dev
