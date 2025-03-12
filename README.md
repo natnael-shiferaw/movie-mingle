@@ -3,6 +3,18 @@
 ## Overview
 Movie Mingle is a dynamic movie recommendation application built using Next.js. It allows users to explore trending movies, receive personalized recommendations, and save their favorite movies for easy access. Designed for a seamless and engaging experience, the app integrates third-party APIs to fetch real-time data and provides a highly interactive user interface.
 
+## Pages Overview
+
+### 🏠 Home Page
+![Home Page](public/screenshots/home-page.png)
+
+### ❤️ Favorites Page
+![Favorites Page](public/screenshots/favorites-page.png)
+
+### 🎬 Movie Details Page
+![Movie Details Page](public/screenshots/movie-details-page.png)
+
+
 ## Features
 ### ✅ API Integration
 - Fetches trending and recommended movies using a public API.
@@ -83,12 +95,13 @@ Movie Mingle is a dynamic movie recommendation application built using Next.js. 
    ```sh
    NEXT_PUBLIC_MOVIE_API_KEY=your_api_key_here
    ```
-   refer the docs [here](https://developer.themoviedb.org/docs/getting-started)
-5. Run the development server:
+   refer to the docs [here](https://developer.themoviedb.org/docs/getting-started) to get your api key.
+   
+6. Run the development server:
    ```sh
    npm run dev
    ```
-6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+7. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 Enjoy exploring movies with Movie Mingle! 🍿
